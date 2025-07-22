@@ -2,119 +2,216 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Enigma Gallery - アートと文学の交差点</title>
+  <title>Enigma Blog Platform</title>
   <style>
-    /* ...（元のCSSをそのまま貼り付け）... */
     body {
       margin: 0;
-      background: #f4f4f4;
+      min-height: 100vh;
       font-family: 'Georgia', serif;
       color: #222;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .bg-slideshow {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .bg-slide {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s;
+      will-change: opacity;
+    }
+    .bg-slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.7);
+      z-index: 2;
+      pointer-events: none;
     }
     header {
-      background: linear-gradient(to right, #2e3c71, #8b6bb3);
+      background: rgba(46,60,113,0.85);
       color: white;
       text-align: center;
-      padding: 2em 1em;
+      padding: 2em 1em 1em 1em;
+      position: relative;
+      z-index: 3;
     }
     header h1 {
       margin: 0;
       font-size: 2.5em;
+      letter-spacing: 0.05em;
     }
     header p {
       margin-top: 0.5em;
       font-style: italic;
     }
-    .gallery {
+    .blog-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
+      gap: 32px;
       padding: 40px;
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
+      z-index: 3;
     }
-    .artwork {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    .blog-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
       overflow: hidden;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
     }
-    .artwork:hover {
-      transform: scale(1.02);
+    .blog-card:hover {
+      transform: translateY(-4px) scale(1.02);
     }
-    .artwork img {
+    .blog-thumb {
       width: 100%;
-      display: block;
+      height: 180px;
+      object-fit: cover;
+      background: #eee;
     }
-    .caption {
-      padding: 1em;
-      font-size: 1rem;
-      line-height: 1.5;
+    .blog-content {
+      padding: 1.2em;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-title {
+      font-size: 1.3em;
+      margin: 0 0 0.5em 0;
+      font-weight: bold;
+    }
+    .blog-summary {
+      flex: 1;
+      font-size: 1em;
+      color: #444;
+      margin-bottom: 1em;
+    }
+    .blog-date {
+      font-size: 0.9em;
+      color: #888;
+      text-align: right;
     }
     footer {
-      background: #222;
+      background: rgba(34,34,34,0.85);
       color: #ccc;
       text-align: center;
       padding: 1em;
       font-size: 0.9em;
+      position: relative;
+      z-index: 3;
     }
   </style>
 </head>
 <body>
+  <div class="bg-slideshow" id="bg-slideshow">
+    <!-- JSで背景画像を挿入 -->
+  </div>
+  <div class="overlay"></div>
   <header>
-    <h1>Enigma Gallery</h1>
-    <p>アートと文学、そして印象派の交差点へようこそ。</p>
+    <h1>Enigma Blog Platform</h1>
+    <p>あなたの創作ブログを一覧で美しく掲載</p>
   </header>
 
-  <section class="gallery" id="gallery">
-    <!-- JavaScriptで動的に作品を挿入 -->
+  <section class="blog-list" id="blog-list">
+    <!-- JavaScriptで動的に記事を挿入 -->
   </section>
 
   <footer>
-    &copy; 2025 Enigma Gallery | Concept by Daiki Fujiike
+    &copy; 2025 Enigma Blog Platform | Concept by Daiki Fujiike
   </footer>
 
   <script>
-    // ギャラリーデータ
-    const artworks = [
+    // 背景画像リスト
+    const bgImages = [
+      "PENTAFANPK98003_TP_V-1024x683.jpg",
+      "saint-pierre-1633682_1920.jpg",
+      "ink-7294678_1920.jpg",
+      "フェルメール「牛乳を注ぐ女」-1712×1920.jpg",
+      "ゴッホ「夜のカフェテラス」-1515×1920.jpg"
+    ];
+
+    // スライドショー生成
+    const bgSlideshow = document.getElementById('bg-slideshow');
+    bgImages.forEach((img, idx) => {
+      const div = document.createElement('div');
+      div.className = 'bg-slide' + (idx === 0 ? ' active' : '');
+      div.style.backgroundImage = `url('${img}')`;
+      bgSlideshow.appendChild(div);
+    });
+
+    // スライドショー切り替え
+    let current = 0;
+    setInterval(() => {
+      const slides = document.querySelectorAll('.bg-slide');
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 5000); // 5秒ごとに切り替え
+
+    // ブログ記事データ
+    const blogs = [
       {
-        img: "PENTAFANPK98003_TP_V-1024x683.jpg",
-        alt: "読書と珈琲",
-        caption: "静寂のなかで言葉が滴る。読書と珈琲、それは思索の儀式。"
+        title: "はじめての詩的エッセイ",
+        summary: "日常の中に潜む詩情を綴ったエッセイ。コーヒーの香りとともに始まる朝の思索。",
+        date: "2025-04-01",
+        thumb: "PENTAFANPK98003_TP_V-1024x683.jpg"
       },
       {
-        img: "saint-pierre-1633682_1920.jpg",
-        alt: "彫刻と哲学",
-        caption: "古典の中に宿る人間性。ローマの息吹を石に刻んだ祈り。"
+        title: "ローマ彫刻と現代哲学",
+        summary: "古代ローマの彫刻に触れながら、現代に生きる私たちの哲学を考える。",
+        date: "2025-04-10",
+        thumb: "saint-pierre-1633682_1920.jpg"
       },
       {
-        img: "ink-7294678_1920.jpg",
-        alt: "抽象と詩",
-        caption: "混沌の中から生まれる言葉。インクの流れは心の地図。"
+        title: "インクの流れ、心の地図",
+        summary: "抽象画と詩のコラボレーション。インクが描く心の軌跡を追う。",
+        date: "2025-04-15",
+        thumb: "ink-7294678_1920.jpg"
       },
       {
-        img: "フェルメール「牛乳を注ぐ女」-1712×1920.jpg",
-        alt: "フェルメールの静謐",
-        caption: "日常の中の神聖。フェルメールの光と沈黙の交差点。"
+        title: "フェルメールの静謐に学ぶ",
+        summary: "フェルメールの名画から、静けさと日常の神聖さを読み解く。",
+        date: "2025-04-20",
+        thumb: "フェルメール「牛乳を注ぐ女」-1712×1920.jpg"
       },
       {
-        img: "ゴッホ「夜のカフェテラス」-1515×1920.jpg",
-        alt: "夜のカフェ",
-        caption: "狂気と美しさのあいだで燃える夜。星と光が踊る場所。"
+        title: "夜のカフェで考えること",
+        summary: "ゴッホの夜のカフェテラスを題材に、夜の静寂と創造性について語る。",
+        date: "2025-04-25",
+        thumb: "ゴッホ「夜のカフェテラス」-1515×1920.jpg"
       }
     ];
 
-    // ギャラリー描画
-    const gallery = document.getElementById('gallery');
-    artworks.forEach(art => {
-      const div = document.createElement('div');
-      div.className = 'artwork';
-      div.innerHTML = `
-        <img src="${art.img}" alt="${art.alt}">
-        <div class="caption">${art.caption}</div>
+    // ブログ一覧描画
+    const blogList = document.getElementById('blog-list');
+    blogs.forEach(blog => {
+      const card = document.createElement('div');
+      card.className = 'blog-card';
+      card.innerHTML = `
+        <img class="blog-thumb" src="${blog.thumb}" alt="${blog.title}">
+        <div class="blog-content">
+          <div class="blog-title">${blog.title}</div>
+          <div class="blog-summary">${blog.summary}</div>
+          <div class="blog-date">${blog.date}</div>
+        </div>
       `;
-      gallery.appendChild(div);
+      blogList.appendChild(card);
     });
   </script>
 </body>
