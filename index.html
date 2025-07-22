@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Enigma Blog Platform</title>
+  <title>Enigma Site Platform</title>
   <style>
     body {
       margin: 0;
@@ -57,7 +57,7 @@
       margin-top: 0.5em;
       font-style: italic;
     }
-    .blog-list {
+    .site-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 32px;
@@ -67,7 +67,7 @@
       position: relative;
       z-index: 3;
     }
-    .blog-card {
+    .site-card {
       background: rgba(255,255,255,0.95);
       border-radius: 14px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.13);
@@ -75,37 +75,57 @@
       transition: transform 0.3s;
       display: flex;
       flex-direction: column;
+      min-height: 320px;
     }
-    .blog-card:hover {
+    .site-card:hover {
       transform: translateY(-4px) scale(1.02);
     }
-    .blog-thumb {
+    .site-thumb {
       width: 100%;
       height: 180px;
       object-fit: cover;
       background: #eee;
+      display: block;
     }
-    .blog-content {
+    .site-content {
       padding: 1.2em;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-    .blog-title {
-      font-size: 1.3em;
+    .site-title {
+      font-size: 1.2em;
       margin: 0 0 0.5em 0;
       font-weight: bold;
+      color: #2e3c71;
+      text-decoration: none;
+      transition: color 0.2s;
+      word-break: break-all;
     }
-    .blog-summary {
+    .site-title:hover {
+      color: #8b6bb3;
+      text-decoration: underline;
+    }
+    .site-desc {
       flex: 1;
       font-size: 1em;
       color: #444;
       margin-bottom: 1em;
+      word-break: break-all;
     }
-    .blog-date {
-      font-size: 0.9em;
-      color: #888;
+    .site-url {
+      font-size: 0.95em;
+      color: #555;
       text-align: right;
+      word-break: break-all;
+    }
+    .site-url a {
+      color: #2e3c71;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .site-url a:hover {
+      color: #8b6bb3;
     }
     footer {
       background: rgba(34,34,34,0.85);
@@ -116,24 +136,36 @@
       position: relative;
       z-index: 3;
     }
+    /* 空データ時の案内 */
+    .empty-message {
+      text-align: center;
+      color: #666;
+      font-size: 1.2em;
+      margin: 60px 0;
+      z-index: 3;
+      position: relative;
+    }
   </style>
 </head>
 <body>
-  <div class="bg-slideshow" id="bg-slideshow">
-    <!-- JSで背景画像を挿入 -->
-  </div>
+  <div class="bg-slideshow" id="bg-slideshow"></div>
   <div class="overlay"></div>
   <header>
-    <h1>Enigma Blog Platform</h1>
-    <p>あなたの創作ブログを一覧で美しく掲載</p>
+    <h1>Enigma Site Platform</h1>
+    <p>あなたのおすすめサイトやブログを美しく一覧掲載</p>
   </header>
 
-  <section class="blog-list" id="blog-list">
-    <!-- JavaScriptで動的に記事を挿入 -->
+  <section class="site-list" id="site-list">
+    <!-- JavaScriptで動的にサイトを挿入 -->
   </section>
+  <div class="empty-message" id="empty-message" style="display:none;">
+    サイトがまだ登録されていません。<br>
+    サイト名・説明・URL・イメージ画像を<br>
+    <code>sites</code> 配列に追加してください。
+  </div>
 
   <footer>
-    &copy; 2025 Enigma Blog Platform | Concept by Daiki Fujiike
+    &copy; 2025 Enigma Site Platform | Concept by Daiki Fujiike
   </footer>
 
   <script>
@@ -164,55 +196,38 @@
       slides[current].classList.add('active');
     }, 5000); // 5秒ごとに切り替え
 
-    // ブログ記事データ
-    const blogs = [
-      {
-        title: "はじめての詩的エッセイ",
-        summary: "日常の中に潜む詩情を綴ったエッセイ。コーヒーの香りとともに始まる朝の思索。",
-        date: "2025-04-01",
-        thumb: "PENTAFANPK98003_TP_V-1024x683.jpg"
-      },
-      {
-        title: "ローマ彫刻と現代哲学",
-        summary: "古代ローマの彫刻に触れながら、現代に生きる私たちの哲学を考える。",
-        date: "2025-04-10",
-        thumb: "saint-pierre-1633682_1920.jpg"
-      },
-      {
-        title: "インクの流れ、心の地図",
-        summary: "抽象画と詩のコラボレーション。インクが描く心の軌跡を追う。",
-        date: "2025-04-15",
-        thumb: "ink-7294678_1920.jpg"
-      },
-      {
-        title: "フェルメールの静謐に学ぶ",
-        summary: "フェルメールの名画から、静けさと日常の神聖さを読み解く。",
-        date: "2025-04-20",
-        thumb: "フェルメール「牛乳を注ぐ女」-1712×1920.jpg"
-      },
-      {
-        title: "夜のカフェで考えること",
-        summary: "ゴッホの夜のカフェテラスを題材に、夜の静寂と創造性について語る。",
-        date: "2025-04-25",
-        thumb: "ゴッホ「夜のカフェテラス」-1515×1920.jpg"
-      }
+    // サイトデータ（初期は空）
+    const sites = [
+      // 例:
+      // {
+      //   name: "Enigma Gallery",
+      //   desc: "アートと文学の交差点をテーマにしたギャラリーサイト。",
+      //   url: "https://enigma-gallery.example.com",
+      //   thumb: "PENTAFANPK98003_TP_V-1024x683.jpg"
+      // }
     ];
 
-    // ブログ一覧描画
-    const blogList = document.getElementById('blog-list');
-    blogs.forEach(blog => {
-      const card = document.createElement('div');
-      card.className = 'blog-card';
-      card.innerHTML = `
-        <img class="blog-thumb" src="${blog.thumb}" alt="${blog.title}">
-        <div class="blog-content">
-          <div class="blog-title">${blog.title}</div>
-          <div class="blog-summary">${blog.summary}</div>
-          <div class="blog-date">${blog.date}</div>
-        </div>
-      `;
-      blogList.appendChild(card);
-    });
+    // サイト一覧描画
+    const siteList = document.getElementById('site-list');
+    const emptyMessage = document.getElementById('empty-message');
+    if (sites.length === 0) {
+      emptyMessage.style.display = '';
+    } else {
+      emptyMessage.style.display = 'none';
+      sites.forEach(site => {
+        const card = document.createElement('div');
+        card.className = 'site-card';
+        card.innerHTML = `
+          ${site.thumb ? `<img class="site-thumb" src="${site.thumb}" alt="${site.name}">` : `<div class="site-thumb"></div>`}
+          <div class="site-content">
+            <a class="site-title" href="${site.url || '#'}" target="_blank" rel="noopener">${site.name || 'サイト名未設定'}</a>
+            <div class="site-desc">${site.desc || ''}</div>
+            <div class="site-url">${site.url ? `<a href="${site.url}" target="_blank" rel="noopener">${site.url}</a>` : ''}</div>
+          </div>
+        `;
+        siteList.appendChild(card);
+      });
+    }
   </script>
 </body>
 </html>
