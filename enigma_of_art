@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>林忠正と重吉 ― ジャポニスムとゴッホの黄色</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      line-height: 1.8;
+      padding: 2em;
+      max-width: 800px;
+      margin: auto;
+      background-color: #fffef9;
+      color: #333;
+    }
+    h2 {
+      border-left: 4px solid #f4c430;
+      padding-left: 0.5em;
+      margin-top: 2em;
+    }
+    h3 {
+      margin-top: 1.5em;
+      color: #666;
+    }
+    blockquote {
+      margin: 1.5em 0;
+      padding: 1em;
+      background-color: #f9f9f9;
+      border-left: 4px solid #ccc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.75em;
+      text-align: left;
+    }
+    a {
+      color: #1d5e8c;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>0.5　パリに渡った二人の日本人画商 ― 林忠正と重吉</h2>
+  <blockquote>
+    <strong>キーメッセージ：</strong>「浮世絵ブームの火付け役は“作品”だけでなく、“売り手”の言語力とネットワークだった」
+  </blockquote>
+
+  <p><strong>林忠正（1853–1906）</strong></p>
+  <ul>
+    <li>1878年、通訳として渡仏。パリで画商を始め、浮世絵を体系的に紹介した最初期の日本人。</li>
+    <li>1886年の雑誌 <em>Paris Illustré</em> に寄稿した論考は、ゴッホが《花魁》(The Courtesan) を制作するきっかけとなった。
+      <a href="https://en.wikipedia.org/wiki/Tadamasa_Hayashi?utm_source=chatgpt.com" target="_blank">[ウィキペディア]</a>
+    </li>
+  </ul>
+
+  <p><strong>重吉（加納重吉）</strong></p>
+  <ul>
+    <li>林の助手として仏語で商談を担った青年――創作上の人物ながら、林の実務を象徴する存在として小説『たゆたえども沈まず』（原田マハ）に描かれる。
+      <a href="https://www.gentosha.jp/article/17150/?srsltid=AfmBOorNENQrzms1W7NzywEFLjIZDmaTxwjqP_A_isWjtAQ2X-ZVnfiO&utm_source=chatgpt.com" target="_blank">[幻冬舎plus]</a>
+    </li>
+    <li>“語学と交渉力”という視点で、浮世絵が欧州知識層へ浸透した背景を物語る補助線。</li>
+  </ul>
+
+  <h2>林忠正が築いた“ジャポニスム人脈”</h2>
+  <h3>助手・重吉という〈通訳＝媒介者〉の役割</h3>
+
+  <h2>2. 浮世絵輸入ブームとゴッホ兄弟 ― 林ネットワークの影響</h2>
+  <ul>
+    <li>林が扱った北斎・広重の版画は、テオを介して印象派画家やパリのサロンに流通。</li>
+    <li>1887年頃、テオは林から <em>ukiyo-e</em> を一括購入した記録が残り、ゴッホが制作ノートに模写を残す。</li>
+    <li>重吉（仮名）は、パリ万博での接客や配送実務を担ったとされ、“物流と翻訳”の観点でジャポニスムを支えた影のキーパーソンと位置づける。</li>
+  </ul>
+
+  <h2>3. 作品比較セクション</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>作品</th>
+        <th>浮世絵へのオマージュ</th>
+        <th>林経由での所蔵可否</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>《夜のカフェテラス》</td>
+        <td>構図に北斎《甲州石橋》の斜線遠近</td>
+        <td>★林ルートの可能性大（1888年）</td>
+      </tr>
+      <tr>
+        <td>《タンギー爺さん》</td>
+        <td>背景に北斎/広重の複数図版</td>
+        <td>テオ経由で入手（林→テオ）</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. “ジャポニスム”が現代デザインに残したDNA</h2>
+  <p>「もし林忠正という“セールスエンジン”が存在しなければ、北斎は欧州で“ただの異国の版画”として埋もれていたかもしれない。」</p>
+
+  <h2>まとめ</h2>
+  <blockquote>
+    <strong>結論：</strong>ゴッホの黄色を語るとき、私たちは作品だけでなく、それを欧州へ運び、語り、売り込んだ <strong>林忠正と“重吉”という媒介者</strong> にも目を向ける必要がある。彼らの存在がなければ、浮世絵は欧州のアトリエに届かず、ゴッホの色彩革命も起こらなかった可能性が高い。
+  </blockquote>
+
+</body>
+</html>
