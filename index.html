@@ -2,50 +2,120 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Enigma Gallery</title>
+  <title>Enigma Gallery - アートと文学の交差点</title>
   <style>
+    /* ...（元のCSSをそのまま貼り付け）... */
     body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
       margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: #f4f4f4;
+      font-family: 'Georgia', serif;
+      color: #222;
     }
-    .container {
+    header {
+      background: linear-gradient(to right, #2e3c71, #8b6bb3);
+      color: white;
       text-align: center;
-      background-color: #fff;
-      padding: 40px 30px;
+      padding: 2em 1em;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    header p {
+      margin-top: 0.5em;
+      font-style: italic;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .artwork {
+      background: #fff;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
     }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
+    .artwork:hover {
+      transform: scale(1.02);
     }
-    a.button {
-      display: inline-block;
-      padding: 12px 24px;
-      background-color: #5c6bc0;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
+    .artwork img {
+      width: 100%;
+      display: block;
     }
-    a.button:hover {
-      background-color: #3f51b5;
+    .caption {
+      padding: 1em;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    footer {
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 1em;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>ようこそ Enigma Gallery へ</h1>
-    <a class="button" href="https://vigorous-ceres-98e.notion.site/237a46a14de680c0aa5ffe7ed00d0f25?pvs=73" target="_blank">作品ページを見る</a>
-  </div>
+  <header>
+    <h1>Enigma Gallery</h1>
+    <p>アートと文学、そして印象派の交差点へようこそ。</p>
+  </header>
+
+  <section class="gallery" id="gallery">
+    <!-- JavaScriptで動的に作品を挿入 -->
+  </section>
+
+  <footer>
+    &copy; 2025 Enigma Gallery | Concept by Daiki Fujiike
+  </footer>
+
+  <script>
+    // ギャラリーデータ
+    const artworks = [
+      {
+        img: "PENTAFANPK98003_TP_V-1024x683.jpg",
+        alt: "読書と珈琲",
+        caption: "静寂のなかで言葉が滴る。読書と珈琲、それは思索の儀式。"
+      },
+      {
+        img: "saint-pierre-1633682_1920.jpg",
+        alt: "彫刻と哲学",
+        caption: "古典の中に宿る人間性。ローマの息吹を石に刻んだ祈り。"
+      },
+      {
+        img: "ink-7294678_1920.jpg",
+        alt: "抽象と詩",
+        caption: "混沌の中から生まれる言葉。インクの流れは心の地図。"
+      },
+      {
+        img: "フェルメール「牛乳を注ぐ女」-1712×1920.jpg",
+        alt: "フェルメールの静謐",
+        caption: "日常の中の神聖。フェルメールの光と沈黙の交差点。"
+      },
+      {
+        img: "ゴッホ「夜のカフェテラス」-1515×1920.jpg",
+        alt: "夜のカフェ",
+        caption: "狂気と美しさのあいだで燃える夜。星と光が踊る場所。"
+      }
+    ];
+
+    // ギャラリー描画
+    const gallery = document.getElementById('gallery');
+    artworks.forEach(art => {
+      const div = document.createElement('div');
+      div.className = 'artwork';
+      div.innerHTML = `
+        <img src="${art.img}" alt="${art.alt}">
+        <div class="caption">${art.caption}</div>
+      `;
+      gallery.appendChild(div);
+    });
+  </script>
 </body>
 </html>
-
