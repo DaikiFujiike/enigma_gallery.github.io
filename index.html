@@ -2,174 +2,329 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Enigma Site Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enigma Coaching | 今は楽しい。でも将来が怖い。</title>
+  <meta name="description" content="18〜24歳向け。周りに流される毎日から抜け出し、自分で人生を選べるようになるためのコーチング。初回30分無料相談あり。">
   <style>
+    :root {
+      --navy: #1d2a52;
+      --purple: #7452a8;
+      --text: #222;
+      --light: rgba(255, 255, 255, 0.92);
+      --accent: #ff9f43;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: 'Georgia', serif;
-      color: #222;
+      font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+      color: var(--text);
+      line-height: 1.7;
       position: relative;
       overflow-x: hidden;
     }
+
     .bg-slideshow {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      inset: 0;
       z-index: 0;
-      width: 100vw;
-      height: 100vh;
       overflow: hidden;
     }
+
     .bg-slide {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      inset: 0;
       background-size: cover;
       background-position: center;
       opacity: 0;
       transition: opacity 1.5s;
       will-change: opacity;
     }
+
     .bg-slide.active {
       opacity: 1;
       z-index: 1;
     }
+
     .overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255,255,255,0.7);
+      inset: 0;
+      background: rgba(250, 250, 255, 0.75);
       z-index: 2;
       pointer-events: none;
     }
-    header {
-      background: rgba(46,60,113,0.85);
-      color: white;
-      text-align: center;
-      padding: 2em 1em 1em 1em;
+
+    main, header, footer {
       position: relative;
       z-index: 3;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      letter-spacing: 0.05em;
-    }
-    header p {
-      margin-top: 0.5em;
-      font-style: italic;
-    }
-    .site-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 32px;
-      padding: 40px;
-      max-width: 1200px;
+
+    .container {
+      width: min(1100px, 92%);
       margin: 0 auto;
-      position: relative;
-      z-index: 3;
     }
-    .site-card {
-      background: rgba(255,255,255,0.95);
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
-      overflow: hidden;
-      transition: transform 0.3s;
+
+    header {
+      padding: 72px 0 52px;
+      background: linear-gradient(140deg, rgba(29, 42, 82, 0.9), rgba(116, 82, 168, 0.85));
+      color: #fff;
+    }
+
+    .eyebrow {
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin: 0 0 10px;
+      font-size: 0.85rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4.2vw, 3.2rem);
+      line-height: 1.3;
+    }
+
+    .lead {
+      margin-top: 18px;
+      max-width: 780px;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      opacity: 0.96;
+    }
+
+    .cta-row {
       display: flex;
-      flex-direction: column;
-      min-height: 320px;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
     }
-    .site-card:hover {
-      transform: translateY(-4px) scale(1.02);
-    }
-    .site-thumb {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      background: #eee;
-      display: block;
-    }
-    .site-content {
-      padding: 1.2em;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .site-title {
-      font-size: 1.2em;
-      margin: 0 0 0.5em 0;
-      font-weight: bold;
-      color: #2e3c71;
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 10px;
       text-decoration: none;
-      transition: color 0.2s;
-      word-break: break-all;
+      font-weight: 700;
     }
-    .site-title:hover {
-      color: #8b6bb3;
-      text-decoration: underline;
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1d1d1d;
     }
-    .site-desc {
-      flex: 1;
-      font-size: 1em;
-      color: #444;
-      margin-bottom: 1em;
-      word-break: break-all;
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
     }
-    .site-url {
-      font-size: 0.95em;
-      color: #555;
-      text-align: right;
-      word-break: break-all;
+
+    section {
+      padding: 52px 0;
     }
-    .site-url a {
-      color: #2e3c71;
-      text-decoration: underline;
-      transition: color 0.2s;
+
+    .panel {
+      background: var(--light);
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     }
-    .site-url a:hover {
-      color: #8b6bb3;
+
+    .section-title {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-size: clamp(1.35rem, 3vw, 2rem);
     }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    ul { padding-left: 1.15rem; }
+
+    .cards {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      margin-top: 14px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(29, 42, 82, 0.12);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .price {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #4a3270;
+    }
+
+    .profile-quote {
+      font-weight: 700;
+      color: #4a3270;
+      margin: 10px 0;
+    }
+
     footer {
-      background: rgba(34,34,34,0.85);
-      color: #ccc;
+      background: rgba(20, 20, 30, 0.88);
+      color: #d7d7df;
       text-align: center;
-      padding: 1em;
-      font-size: 0.9em;
-      position: relative;
-      z-index: 3;
-    }
-    /* 空データ時の案内 */
-    .empty-message {
-      text-align: center;
-      color: #666;
-      font-size: 1.2em;
-      margin: 60px 0;
-      z-index: 3;
-      position: relative;
+      padding: 16px;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
   <div class="bg-slideshow" id="bg-slideshow"></div>
   <div class="overlay"></div>
+
   <header>
-    <h1>Enigma Site Platform</h1>
-    <p>あなたのおすすめサイトやブログを美しく一覧掲載</p>
+    <div class="container">
+      <p class="eyebrow">Enigma Coaching</p>
+      <h1>今は楽しい。<br>でも将来が怖い。</h1>
+      <p class="lead">
+        18〜24歳の「このままでいいのか」を、行動に変えるコーチング。
+        周りに流される毎日から抜け出し、自分で人生を選べる状態へ。
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">初回30分無料相談を申し込む</a>
+        <a class="btn btn-secondary" href="#service">サービス内容を見る</a>
+      </div>
+    </div>
   </header>
 
-  <section class="site-list" id="site-list">
-    <!-- JavaScriptで動的にサイトを挿入 -->
-  </section>
-  <div class="empty-message" id="empty-message" style="display:none;">
-    サイトがまだ登録されていません。<br>
-    サイト名・説明・URL・イメージ画像を<br>
-    <code>sites</code> 配列に追加してください。
-  </div>
+  <main>
+    <section>
+      <div class="container grid-2">
+        <div class="panel">
+          <h2 class="section-title">こんな悩みはありませんか？</h2>
+          <ul>
+            <li>将来が不安だけど、何から始めればいいかわからない</li>
+            <li>遊びや惰性の人間関係から抜け出せない</li>
+            <li>就職以外の選択肢が見えず、可能性を狭めてしまう</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h2 class="section-title">このコーチングで目指す状態</h2>
+          <ul>
+            <li>自分がどう生きたいかを言語化できる</li>
+            <li>周りに流されず、自分で選択して行動できる</li>
+            <li>学び・挑戦・発信・ビジネスへの最初の一歩を踏み出せる</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="service">
+      <div class="container panel">
+        <h2 class="section-title">サポート内容</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>自己理解・目標設計</h3>
+            <p>自己分析、価値観整理、将来の選択肢の言語化を行います。</p>
+          </article>
+          <article class="card">
+            <h3>習慣と環境の改善</h3>
+            <p>人間関係・生活習慣を見直し、行動しやすい環境を整えます。</p>
+          </article>
+          <article class="card">
+            <h3>行動実装サポート</h3>
+            <p>週1セッション＋LINE/Instagramで、継続行動を伴走します。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container panel">
+        <h2 class="section-title">プラン・料金</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>初回無料相談</h3>
+            <p class="price">30分 / 無料</p>
+            <p>現状の悩み整理と、変化への最初の一歩を明確化します。</p>
+          </article>
+          <article class="card">
+            <h3>単発セッション</h3>
+            <p class="price">60分 / 5,000〜10,000円</p>
+            <p>今の課題にピンポイントで向き合い、行動プランを作成します。</p>
+          </article>
+          <article class="card">
+            <h3>継続サポート</h3>
+            <p class="price">1ヶ月 30,000〜50,000円 / 3ヶ月 90,000〜120,000円</p>
+            <p>週1コーチング + チャット伴走で、習慣と成果を定着させます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container panel">
+        <h2 class="section-title">プロフィール</h2>
+        <p class="profile-quote">「ダメな人間なんていない。でも本当は変わりたいなら、今日から動こう。」</p>
+        <p>
+          私自身、酒・遊び・悪友・その場の快楽に流され、将来から目を背けていた時期がありました。
+          そこから付き合う人、思考、行動を変え、学業・AI開発・ブログ・インターン・イベント運営に挑戦。
+          同じように「このままでいいのか」と感じる若者が、人生を立て直すきっかけを届けるために活動しています。
+        </p>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container panel">
+        <h2 class="section-title">よくある質問（FAQ）</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Q. まだ本気でやるか迷っています。それでも相談していいですか？</h3>
+            <p>A. 大丈夫です。無料相談では、無理な勧誘はせず、今の悩み整理と「本当に変わりたい理由」の言語化を一緒に行います。</p>
+          </article>
+          <article class="card">
+            <h3>Q. コーチングは厳しいですか？</h3>
+            <p>A. 基本は寄り添いながら進めます。ただし、逃げ癖や先延ばしには正面から向き合い、行動まで落とし込むスタイルです。</p>
+          </article>
+          <article class="card">
+            <h3>Q. どんな人に向いていますか？</h3>
+            <p>A. 「今は楽しいけど、このままは怖い」と感じている18〜24歳に特に向いています。言い訳を減らして動きたい人ほど変化が出ます。</p>
+          </article>
+          <article class="card">
+            <h3>Q. 支払い方法は何がありますか？</h3>
+            <p>A. 現在は銀行振込・PayPayに対応しています。クレジットカード決済は準備中です。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container panel">
+        <h2 class="section-title">まずは無料相談へ</h2>
+        <p>
+          迷っていても大丈夫です。現状の悩みを一緒に整理し、あなたに必要な最初の一歩を明確にします。
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://www.instagram.com/nanas.1104?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagram DMで無料相談する</a>
+          <a class="btn" style="background:#fff; border:1px solid #d2d2df; color:#1d2a52;" href="https://www.instagram.com/nanas.1104?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagramをフォローする</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 Enigma Site Platform | Concept by Daiki Fujiike
+    &copy; 2026 Enigma Coaching | Concept by Daiki Fujiike
   </footer>
 
   <script>
-    // 背景画像リスト
     const bgImages = [
       "PENTAFANPK98003_TP_V-1024x683.jpg",
       "saint-pierre-1633682_1920.jpg",
@@ -178,54 +333,21 @@
       "ゴッホ「夜のカフェテラス」-1515×1920.jpg"
     ];
 
-    // スライドショー生成
-    const bgSlideshow = document.getElementById('bg-slideshow');
+    const bgSlideshow = document.getElementById("bg-slideshow");
     bgImages.forEach((img, idx) => {
-      const div = document.createElement('div');
-      div.className = 'bg-slide' + (idx === 0 ? ' active' : '');
+      const div = document.createElement("div");
+      div.className = `bg-slide${idx === 0 ? " active" : ""}`;
       div.style.backgroundImage = `url('${img}')`;
       bgSlideshow.appendChild(div);
     });
 
-    // スライドショー切り替え
     let current = 0;
     setInterval(() => {
-      const slides = document.querySelectorAll('.bg-slide');
-      slides[current].classList.remove('active');
+      const slides = document.querySelectorAll(".bg-slide");
+      slides[current].classList.remove("active");
       current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-    }, 5000); // 5秒ごとに切り替え
-
-  const sites = [
-  {
-    name: "【人間失格の感想】SNS時代に生きる僕たちZ世代が共感する“壊れていく自意識”の物語",
-    desc: `『人間失格』は現代のSNS世代が抱える「他者の目」への不安と「自己価値」の揺らぎを映し出す鏡。この記事では太宰治の名作から見える現代的課題を考察します。`,
-    url: "https://claude.ai/public/artifacts/d78d9601-506b-43f7-9758-52839e0feafd",
-    thumb: "generated-image-1753197478813.jpg" 
-  }
-];
-
-    // サイト一覧描画
-    const siteList = document.getElementById('site-list');
-    const emptyMessage = document.getElementById('empty-message');
-    if (sites.length === 0) {
-      emptyMessage.style.display = '';
-    } else {
-      emptyMessage.style.display = 'none';
-      sites.forEach(site => {
-        const card = document.createElement('div');
-        card.className = 'site-card';
-        card.innerHTML = `
-          ${site.thumb ? `<img class="site-thumb" src="${site.thumb}" alt="${site.name}">` : `<div class="site-thumb"></div>`}
-          <div class="site-content">
-            <a class="site-title" href="${site.url || '#'}" target="_blank" rel="noopener">${site.name || 'サイト名未設定'}</a>
-            <div class="site-desc">${site.desc || ''}</div>
-            <div class="site-url">${site.url ? `<a href="${site.url}" target="_blank" rel="noopener">${site.url}</a>` : ''}</div>
-          </div>
-        `;
-        siteList.appendChild(card);
-      });
-    }
+      slides[current].classList.add("active");
+    }, 5000);
   </script>
 </body>
 </html>
