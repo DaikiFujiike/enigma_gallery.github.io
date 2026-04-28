@@ -3,200 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Enigma Coaching | 今は楽しい。でも将来が怖い。</title>
   <meta name="description" content="18〜24歳向け。周りに流される毎日から抜け出し、自分で人生を選べるようになるためのコーチング。初回30分無料相談あり。">
   <style>
     :root {
-      --navy: #1d2a52;
-      --purple: #7452a8;
-      --text: #222;
-      --light: rgba(255, 255, 255, 0.92);
-      --accent: #ff9f43;
+      --bg: #f6f4ef;
+      --paper: #fffdf8;
+      --ink: #222222;
+      --muted: #5f5a52;
+      --line: #ded7cb;
+      --primary: #1e2a45;
+      --primary-soft: #2e3d63;
+      --gold: #b1905b;
+      --radius: 14px;
+      --shadow: 0 10px 28px rgba(20, 18, 14, 0.08);
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      min-height: 100vh;
       font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
-      color: var(--text);
-      line-height: 1.7;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    .bg-slideshow {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .bg-slide {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 1.5s;
-      will-change: opacity;
-    }
-
-    .bg-slide.active {
-      opacity: 1;
-      z-index: 1;
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(250, 250, 255, 0.75);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    main, header, footer {
-      position: relative;
-      z-index: 3;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(177, 144, 91, 0.09), transparent 45%),
+        radial-gradient(circle at 85% 90%, rgba(30, 42, 69, 0.10), transparent 40%),
+        var(--bg);
+      line-height: 1.75;
     }
 
     .container {
-      width: min(1100px, 92%);
+      width: min(1080px, 92%);
       margin: 0 auto;
     }
 
     header {
-      padding: 72px 0 52px;
-      background: linear-gradient(140deg, rgba(29, 42, 82, 0.9), rgba(116, 82, 168, 0.85));
-      color: #fff;
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(150deg, rgba(255,253,248,0.94), rgba(246,244,239,0.88));
     }
 
-    .eyebrow {
+    .brand {
+      margin: 0;
+      color: var(--primary);
+      font-size: 0.84rem;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      opacity: 0.9;
-      margin: 0 0 10px;
-      font-size: 0.85rem;
     }
 
     h1 {
-      margin: 0;
-      font-size: clamp(1.8rem, 4.2vw, 3.2rem);
-      line-height: 1.3;
+      margin: 10px 0 0;
+      line-height: 1.35;
+      font-size: clamp(1.9rem, 4.2vw, 3rem);
+      color: var(--primary);
     }
 
     .lead {
       margin-top: 18px;
-      max-width: 780px;
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
-      opacity: 0.96;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
     }
 
     .cta-row {
+      margin-top: 28px;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 28px;
     }
 
     .btn {
       display: inline-block;
-      padding: 12px 18px;
-      border-radius: 10px;
+      padding: 11px 18px;
+      border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform .15s ease;
     }
 
+    .btn:hover { transform: translateY(-1px); }
+
     .btn-primary {
-      background: var(--accent);
-      color: #1d1d1d;
+      background: var(--primary);
+      color: #fff;
+      border: 1px solid var(--primary);
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.14);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--line);
     }
 
-    section {
-      padding: 52px 0;
-    }
+    section { padding: 46px 0; }
 
     .panel {
-      background: var(--light);
-      border-radius: 16px;
-      padding: 26px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
     }
 
     .section-title {
-      margin: 0 0 14px;
-      color: var(--navy);
-      font-size: clamp(1.35rem, 3vw, 2rem);
+      margin: 0 0 12px;
+      color: var(--primary);
+      font-size: clamp(1.3rem, 2.6vw, 1.9rem);
     }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-    }
-
-    ul { padding-left: 1.15rem; }
-
+    .grid-2,
     .cards {
       display: grid;
       gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      margin-top: 14px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .cards {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
 
     .card {
       background: #fff;
+      border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 18px;
-      border: 1px solid rgba(29, 42, 82, 0.12);
+      padding: 17px;
     }
 
     .card h3 {
       margin-top: 0;
-      color: var(--navy);
-      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--primary-soft);
+      font-size: 1.02rem;
     }
 
     .price {
-      font-size: 1.05rem;
+      margin: 4px 0 10px;
+      color: var(--gold);
       font-weight: 700;
-      color: #4a3270;
     }
 
-    .profile-quote {
+    ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    .quote {
+      margin: 0 0 10px;
+      color: var(--primary-soft);
       font-weight: 700;
-      color: #4a3270;
-      margin: 10px 0;
     }
 
     footer {
-      background: rgba(20, 20, 30, 0.88);
-      color: #d7d7df;
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
+      padding: 22px 0 28px;
       text-align: center;
-      padding: 16px;
+      color: var(--muted);
       font-size: 0.9rem;
+    }
+
+    .updated-at {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #8a8378;
     }
   </style>
 </head>
 <body>
-  <div class="bg-slideshow" id="bg-slideshow"></div>
-  <div class="overlay"></div>
-
   <header>
     <div class="container">
-      <p class="eyebrow">Enigma Coaching</p>
+      <p class="brand">Enigma Coaching</p>
       <h1>今は楽しい。<br>でも将来が怖い。</h1>
       <p class="lead">
-        18〜24歳の「このままでいいのか」を、行動に変えるコーチング。
-        周りに流される毎日から抜け出し、自分で人生を選べる状態へ。
+        18〜24歳の「このままでいいのか」を、具体的な行動に変えるコーチング。
+        周りに流される日々から抜け出し、自分で人生を選択できる状態を一緒に作ります。
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#contact">初回30分無料相談を申し込む</a>
@@ -208,22 +196,22 @@
   <main>
     <section>
       <div class="container grid-2">
-        <div class="panel">
+        <article class="panel">
           <h2 class="section-title">こんな悩みはありませんか？</h2>
           <ul>
-            <li>将来が不安だけど、何から始めればいいかわからない</li>
+            <li>将来が不安なのに、何から始めるべきかわからない</li>
             <li>遊びや惰性の人間関係から抜け出せない</li>
             <li>就職以外の選択肢が見えず、可能性を狭めてしまう</li>
           </ul>
-        </div>
-        <div class="panel">
+        </article>
+        <article class="panel">
           <h2 class="section-title">このコーチングで目指す状態</h2>
           <ul>
             <li>自分がどう生きたいかを言語化できる</li>
             <li>周りに流されず、自分で選択して行動できる</li>
-            <li>学び・挑戦・発信・ビジネスへの最初の一歩を踏み出せる</li>
+            <li>学び・挑戦・発信・ビジネスの一歩を踏み出せる</li>
           </ul>
-        </div>
+        </article>
       </div>
     </section>
 
@@ -236,12 +224,12 @@
             <p>自己分析、価値観整理、将来の選択肢の言語化を行います。</p>
           </article>
           <article class="card">
-            <h3>習慣と環境の改善</h3>
-            <p>人間関係・生活習慣を見直し、行動しやすい環境を整えます。</p>
+            <h3>環境と習慣の改善</h3>
+            <p>人間関係・生活習慣を見直し、行動が続く土台を整えます。</p>
           </article>
           <article class="card">
-            <h3>行動実装サポート</h3>
-            <p>週1セッション＋LINE/Instagramで、継続行動を伴走します。</p>
+            <h3>行動の実装サポート</h3>
+            <p>週1セッションとDMサポートで、継続行動まで伴走します。</p>
           </article>
         </div>
       </div>
@@ -254,17 +242,17 @@
           <article class="card">
             <h3>初回無料相談</h3>
             <p class="price">30分 / 無料</p>
-            <p>現状の悩み整理と、変化への最初の一歩を明確化します。</p>
+            <p>現状整理と、変化への最初の一歩を明確にします。</p>
           </article>
           <article class="card">
             <h3>単発セッション</h3>
             <p class="price">60分 / 5,000〜10,000円</p>
-            <p>今の課題にピンポイントで向き合い、行動プランを作成します。</p>
+            <p>目の前の課題を深掘りし、即実行できる計画を作ります。</p>
           </article>
           <article class="card">
             <h3>継続サポート</h3>
             <p class="price">1ヶ月 30,000〜50,000円 / 3ヶ月 90,000〜120,000円</p>
-            <p>週1コーチング + チャット伴走で、習慣と成果を定着させます。</p>
+            <p>週1コーチング + チャット伴走で行動の質と量を高めます。</p>
           </article>
         </div>
       </div>
@@ -273,11 +261,11 @@
     <section>
       <div class="container panel">
         <h2 class="section-title">プロフィール</h2>
-        <p class="profile-quote">「ダメな人間なんていない。でも本当は変わりたいなら、今日から動こう。」</p>
+        <p class="quote">「ダメな人間なんていない。でも本当は変わりたいなら、今日から動こう。」</p>
         <p>
           私自身、酒・遊び・悪友・その場の快楽に流され、将来から目を背けていた時期がありました。
-          そこから付き合う人、思考、行動を変え、学業・AI開発・ブログ・インターン・イベント運営に挑戦。
-          同じように「このままでいいのか」と感じる若者が、人生を立て直すきっかけを届けるために活動しています。
+          そこから思考・行動・付き合う人を変え、学業・AI開発・ブログ・インターン・イベント運営へ挑戦。
+          同じように「このままでいいのか」と感じる若者に、人生を立て直すきっかけを届けるために活動しています。
         </p>
       </div>
     </section>
@@ -287,20 +275,20 @@
         <h2 class="section-title">よくある質問（FAQ）</h2>
         <div class="cards">
           <article class="card">
-            <h3>Q. まだ本気でやるか迷っています。それでも相談していいですか？</h3>
-            <p>A. 大丈夫です。無料相談では、無理な勧誘はせず、今の悩み整理と「本当に変わりたい理由」の言語化を一緒に行います。</p>
+            <h3>Q. まだ本気でやるか迷っています。それでも相談できますか？</h3>
+            <p>A. もちろん可能です。無理な勧誘はせず、まずは悩み整理と方向性の明確化を行います。</p>
           </article>
           <article class="card">
-            <h3>Q. コーチングは厳しいですか？</h3>
-            <p>A. 基本は寄り添いながら進めます。ただし、逃げ癖や先延ばしには正面から向き合い、行動まで落とし込むスタイルです。</p>
+            <h3>Q. 厳しすぎる指導は苦手です。</h3>
+            <p>A. 基本は寄り添い型です。ただし、逃げ癖や先延ばしには正面から向き合います。</p>
           </article>
           <article class="card">
             <h3>Q. どんな人に向いていますか？</h3>
-            <p>A. 「今は楽しいけど、このままは怖い」と感じている18〜24歳に特に向いています。言い訳を減らして動きたい人ほど変化が出ます。</p>
+            <p>A. 「今は楽しいけど将来が怖い」と感じる18〜24歳に特に向いています。</p>
           </article>
           <article class="card">
-            <h3>Q. 支払い方法は何がありますか？</h3>
-            <p>A. 現在は銀行振込・PayPayに対応しています。クレジットカード決済は準備中です。</p>
+            <h3>Q. 支払い方法は？</h3>
+            <p>A. 現在は銀行振込・PayPayに対応。クレジットカード決済は準備中です。</p>
           </article>
         </div>
       </div>
@@ -309,12 +297,10 @@
     <section id="contact">
       <div class="container panel">
         <h2 class="section-title">まずは無料相談へ</h2>
-        <p>
-          迷っていても大丈夫です。現状の悩みを一緒に整理し、あなたに必要な最初の一歩を明確にします。
-        </p>
+        <p>現状の悩みを一緒に整理し、あなたに必要な最初の一歩を明確にします。</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://www.instagram.com/nanas.1104?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagram DMで無料相談する</a>
-          <a class="btn" style="background:#fff; border:1px solid #d2d2df; color:#1d2a52;" href="https://www.instagram.com/nanas.1104?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagramをフォローする</a>
+          <a class="btn btn-secondary" href="https://www.instagram.com/nanas.1104?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagramをフォローする</a>
         </div>
       </div>
     </section>
@@ -322,32 +308,7 @@
 
   <footer>
     &copy; 2026 Enigma Coaching | Concept by Daiki Fujiike
+    <div class="updated-at">最終更新: 2026-04-28</div>
   </footer>
-
-  <script>
-    const bgImages = [
-      "PENTAFANPK98003_TP_V-1024x683.jpg",
-      "saint-pierre-1633682_1920.jpg",
-      "ink-7294678_1920.jpg",
-      "フェルメール「牛乳を注ぐ女」-1712×1920.jpg",
-      "ゴッホ「夜のカフェテラス」-1515×1920.jpg"
-    ];
-
-    const bgSlideshow = document.getElementById("bg-slideshow");
-    bgImages.forEach((img, idx) => {
-      const div = document.createElement("div");
-      div.className = `bg-slide${idx === 0 ? " active" : ""}`;
-      div.style.backgroundImage = `url('${img}')`;
-      bgSlideshow.appendChild(div);
-    });
-
-    let current = 0;
-    setInterval(() => {
-      const slides = document.querySelectorAll(".bg-slide");
-      slides[current].classList.remove("active");
-      current = (current + 1) % slides.length;
-      slides[current].classList.add("active");
-    }, 5000);
-  </script>
 </body>
 </html>
